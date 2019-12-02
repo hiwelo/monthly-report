@@ -1,5 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import Listr from 'listr';
+import { prepareExport } from './export';
 import { setupOctokit, testOctokit, listIssues } from './github';
 import { setupEnvironment, setupTimeframe } from './utilities';
 import { Context } from './types';
@@ -30,6 +31,7 @@ class MonthlyReport extends Command {
 
     // setup the context based on the information from the flags & API
     const initialContext: Partial<Context> = {
+      exportContent: [],
       ...flags,
       ...api,
     };
@@ -59,12 +61,17 @@ class MonthlyReport extends Command {
         title: 'Lists all issues since the time breakpoint',
         task: listIssues,
       },
+      {
+        title: 'Prepare the export',
+        task: prepareExport,
+      },
     ]);
 
     // run all tasks, catch and return any error if applicable
     try {
       const context = (await setup.run(initialContext)) as Context;
-      await tasks.run(context);
+      const finalContent = await tasks.run(context);
+      console.log(finalContent.exportContent.join('\n'));
     } catch {
       console.error('The process ended with an error. Please check below.');
     }

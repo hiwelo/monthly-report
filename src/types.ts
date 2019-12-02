@@ -10,6 +10,8 @@ export interface OctokitContext {
 export interface Context {
   /** Name of the user to export the issues and pull requests */
   assignee: string;
+  /** Content to be exported (issues and pull requested matching criterias) */
+  exportContent: string[];
   /** Requested month of the issues and pull requests to search */
   month: string;
   /** Octokit object linking the project to the GitHub API */
