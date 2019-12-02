@@ -10,8 +10,10 @@ export const setupTimeframe = (context: Partial<Context>): void => {
   // uses the current month as value if no month requested
   if (!context.month) {
     const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
 
-    context.month = `${currentDate.getFullYear()}-${currentDate.getMonth()}`;
+    context.month = `${currentYear}-${currentMonth}`;
   }
 
   // sets timestamp for the GitHub API
