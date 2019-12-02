@@ -1,4 +1,5 @@
 import { Command, flags } from '@oclif/command';
+import dotEnv from 'dotenv';
 
 class MonthlyReport extends Command {
   static description =
@@ -14,6 +15,9 @@ class MonthlyReport extends Command {
 
   async run() {
     const { args, flags } = this.parse(MonthlyReport);
+
+    // declares information from .env file in the environment variables
+    dotEnv.config();
   }
 }
 
