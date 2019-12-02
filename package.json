@@ -11,9 +11,11 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "listr": "^0.14.3",
     "tslib": "^1"
   },
   "devDependencies": {
+    "@types/listr": "^0.14.2",
     "@types/node": "^10",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
