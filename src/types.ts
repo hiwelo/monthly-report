@@ -1,4 +1,4 @@
-import Octokit from '@octokit/rest';
+import Octokit, { IssuesListForRepoResponseItem } from '@octokit/rest';
 
 export interface OctokitContext {
   /** Owner of the repository */
@@ -20,6 +20,8 @@ export interface Context {
   since: string;
   /** Token to use for the GitHub API */
   token: string;
+  /** List of issues for the requested timeframe and assignee */
+  issues?: IssuesListForRepoResponseItem[];
 }
 
 export interface Flags {

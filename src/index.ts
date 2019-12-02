@@ -1,6 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import Listr from 'listr';
-import { setupOctokit, testOctokit } from './github';
+import { setupOctokit, testOctokit, listIssues } from './github';
 import { setupEnvironment, setupTimeframe } from './utilities';
 import { Context } from './types';
 
@@ -54,9 +54,17 @@ class MonthlyReport extends Command {
       },
     ]);
 
+    const tasks = new Listr<Context>([
+      {
+        title: 'Lists all issues since the time breakpoint',
+        task: listIssues,
+      },
+    ]);
+
     // run all tasks, catch and return any error if applicable
     try {
-      await setup.run(initialContext);
+      const context = (await setup.run(initialContext)) as Context;
+      await tasks.run(context);
     } catch {
       console.error('The process ended with an error. Please check below.');
     }
