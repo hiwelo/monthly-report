@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command';
 import Listr from 'listr';
-import { prepareExport } from './export';
-import { setupOctokit, testOctokit, listIssues } from './github';
+import { exportClipboard, prepareExport } from './export';
+import { listIssues, setupOctokit, testOctokit } from './github';
 import { setupEnvironment, setupTimeframe } from './utilities';
 import { Context } from './types';
 
@@ -65,13 +65,16 @@ class MonthlyReport extends Command {
         title: 'Prepare the export',
         task: prepareExport,
       },
+      {
+        title: 'Export the list of issues in the clipboard',
+        task: exportClipboard,
+      },
     ]);
 
     // run all tasks, catch and return any error if applicable
     try {
       const context = (await setup.run(initialContext)) as Context;
-      const finalContent = await tasks.run(context);
-      console.log(finalContent.exportContent.join('\n'));
+      await tasks.run(context);
     } catch {
       console.error('The process ended with an error. Please check below.');
     }

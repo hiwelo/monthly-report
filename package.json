@@ -12,6 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "@octokit/rest": "^16.35.0",
+    "clipboardy": "^2.1.0",
     "dotenv": "^8.2.0",
     "listr": "^0.14.3",
     "tslib": "^1"
