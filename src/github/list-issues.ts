@@ -13,6 +13,7 @@ export const listIssues = async (context: Context): Promise<void> => {
     assignee,
     since,
     state: 'closed',
+    direction: 'asc',
   });
 
   // eslint-disable-next-line require-atomic-updates
