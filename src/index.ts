@@ -1,7 +1,7 @@
 import { Command, flags } from '@oclif/command';
 import Listr from 'listr';
 import { setupOctokit, testOctokit } from './github';
-import { setupEnvironment } from './utilities';
+import { setupEnvironment, setupTimeframe } from './utilities';
 import { Context } from './types';
 
 class MonthlyReport extends Command {
@@ -11,6 +11,8 @@ class MonthlyReport extends Command {
   static flags = {
     version: flags.version({ char: 'v' }),
     help: flags.help({ char: 'h' }),
+    assignee: flags.string({ char: 'a', description: 'assignee' }),
+    month: flags.string({ char: 'm', description: 'month' }),
     repository: flags.string({ char: 'n', description: 'repository' }),
     token: flags.string({
       char: 't',
@@ -37,6 +39,10 @@ class MonthlyReport extends Command {
       {
         title: 'Setup context and environment',
         task: setupEnvironment,
+      },
+      {
+        title: 'Setup timeframe for this search',
+        task: setupTimeframe,
       },
       {
         title: 'Setup link to the GitHub API',
