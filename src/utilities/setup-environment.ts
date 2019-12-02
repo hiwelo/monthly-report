@@ -32,4 +32,16 @@ export const setupEnvironment = (context: Partial<Context>): void => {
 
     context.repository = process.env.repository;
   }
+
+  // gets the assignee from the environment if not available
+  if (context.assignee === undefined) {
+    // early-termination if there is no assignee information in the environment
+    if (process.env.assignee === undefined) {
+      throw new Error(
+        'No assignee provided. This command line tool needs a assignee to work provided with the flag --assignee.',
+      );
+    }
+
+    context.assignee = process.env.assignee;
+  }
 };
